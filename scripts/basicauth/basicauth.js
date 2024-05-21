@@ -11,6 +11,8 @@ const EDS_AUTH_CONFIG_AUTH_EXPIRES_KEY = 'auth-password';
 // If not working, update useragent from here https://github.com/GoogleChrome/lighthouse/blob/a511e5899e90dd9b943b85901fa3c40024d6a5f1/core/config/constants.js#L83
 const LIGHTHOUSE_MOBILE_USERAGENT =
   'Mozilla/5.0 (Linux; Android 11; moto g power (2022)) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Mobile Safari/537.36';
+const LIGHTHOUSE_DESKTOP_USERAGENT = 
+  'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36';
 
 const BasicAuth = {
   getAuthPassword: async () => BasicAuth.getConfigValue(EDS_AUTH_CONFIG_AUTH_PASSWORD_KEY),
@@ -42,7 +44,7 @@ const BasicAuth = {
 
     return true;
   },
-  isLighthouse: () => navigator.userAgent === LIGHTHOUSE_MOBILE_USERAGENT,
+  isLighthouse: () => [LIGHTHOUSE_MOBILE_USERAGENT, LIGHTHOUSE_DESKTOP_USERAGENT].includes(navigator.userAgent),
   getConfig: async () => {
     let configJSON = window.sessionStorage.getItem(EDS_AUTH_CONFIG_ST_KEY);
     if (!configJSON) {
